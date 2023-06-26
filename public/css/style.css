@@ -1,0 +1,50 @@
+.blue{
+	background-color: blue;
+}
+
+.green{
+	background-color: green;
+}
+
+.gray{
+        background-color: gray;} 
+.lightgrey{
+        background-color: lightgrey;} 
+
+.text{
+    color:brown;
+}
+.text{
+    color:rgb(165, 157, 44);
+}
+.white{
+    background-color: white;
+}
+.offwhite{
+    background-color: antiquewhite;
+}
+.margin{
+    margin-left:    90px;
+    margin-top: 0%;
+}
+.buttonmargin{
+    margin-left: 140px;
+
+}
+.submitmargin{
+    margin-left: 120px;
+
+}
+
+.padding{
+    padding-left: 600px;
+}
+
+.break {
+    background-image: url('../images/separator.png');
+    background-position:  center;
+    background-repeat: no-repeat;
+    height: 24px;
+   margin-left: 590px;
+    width: 150px;
+}
