@@ -42,8 +42,6 @@ class DonorformController extends Controller
         $post->Age = $request->input('Age');
         $post->Address = $request->input('Address');
         $post->Group = $request->input('Group');
-
-        dd($post);
        
         $post->save();
     }
