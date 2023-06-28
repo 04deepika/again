@@ -7,6 +7,9 @@
 
 
 <div class="container mb-3">
+<!-- @if(isset($distance)) -->
+    <p>Distance: {{ $distance }} km</p>
+<!-- @endif -->
     <div class="row mt-5">
     <div class="col-md-12 col-sm-12 text-center">
                         <div class="banner-content">
@@ -61,6 +64,29 @@
 </div>
     </div>
 </div>
+
+<p>Click the button to get your coordinates.</p>
+
+<button onclick="getLocation()">Try It</button>
+
+<p id="demo"></p>
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;
+}
+</script>
 
 
 @endsection
