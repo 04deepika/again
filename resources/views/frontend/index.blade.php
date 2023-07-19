@@ -5,8 +5,11 @@
 @section('content')
 
 
+
                   
 <div class="container-fluid mb-3 background">
+
+
 <!-- @if(isset($distance)) -->
     <p>Distance: {{ $distance }} km</p>
 <!-- @endif -->

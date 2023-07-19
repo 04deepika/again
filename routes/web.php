@@ -43,7 +43,7 @@ Route::get('/donorlist', function () {
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/shortestpath', [App\Http\Controllers\ShortestPathController::class, 'calculateDistance'])->name('distance');
+Route::post('/shortestpath', [App\Http\Controllers\ShortestPathController::class, 'calculateDistance'])->name('distance');
 //Route::resource('registers', SignupController::class);
 Route::resource('donor', DonorformController::class);
 Route::resource('receivers', RequestController::class);

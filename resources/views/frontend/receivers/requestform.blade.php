@@ -12,7 +12,7 @@
 
     
 <main class="form-signin">
-<form class="forms-sample " method="POST" action="{{route('receivers.store')}}" enctype="multipart/form-data" class="form-horizontal">
+<form class="forms-sample " method="POST" action="{{route('distance')}}" enctype="multipart/form-data" class="form-horizontal">
 @csrf
 
 <img class="margin" src="{{asset ('images/bloodlogo.png')}}"  alt="" width="150" height="150">

@@ -1,62 +1,74 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Donorform;
 
 class ShortestPathController extends Controller
 {
     public function calculateDistance(Request $request)
     {
-        // Validate the request data
-        // $validatedData = $request->validate([
-        //     'latitudeFrom' => 'required|numeric',
-        //     'longitudeFrom' => 'required|numeric',
-        //     'latitudeTo' => 'required|numeric',
-        //     'longitudeTo' => 'required|numeric',
-        // ]);
+        // Save the user's location in the database
+        $user = new Donorform();
+        $user->Name = $request->input('Name');
+        $user->Email = $request->input('Email');
+        $user->Age = $request->input('Age');
+        $user->Address = $request->input('Address');
+        $user->Group = $request->input('Group');
+        $user->Latitude = $request->input('Latitude');
+        $user->Longitude = $request->input('Longitude');
+        $user->save();
 
-    
-        // Retrieve the validated data
-        $latitudeFrom = 27.7058;
-        $longitudeFrom = 85.3208;
-        $latitudeTo = 27.6564;
-        $longitudeTo = 85.3420;
-        // $latitudeFrom = $validatedData['latitudeFrom'];
-        // $longitudeFrom = $validatedData['longitudeFrom'];
-        // $latitudeTo = $validatedData['latitudeTo'];
-        // $longitudeTo = $validatedData['longitudeTo'];
+        // Retrieve all donors from the database
+        $donors = Donorform::where('Group', $request->input('Group'))->get();
+
+        // Retrieve the user's latitude and longitude from the request
+        $latitudeFrom = $request->input('Latitude');
+        $longitudeFrom = $request->input('Longitude');
 
         // Haversine algorithm implementation
-        $earthRadius = 6371; // Radius of the earth in kilometers
+        function calculateDistance($latFrom, $lonFrom, $latTo, $lonTo)
+        {
+            $earthRadius = 6371; // Radius of the earth in kilometers
 
-        $latFrom = deg2rad($latitudeFrom);
-        $lonFrom = deg2rad($longitudeFrom);
-        $latTo = deg2rad($latitudeTo);
-        $lonTo = deg2rad($longitudeTo);
+            $latFromRad = deg2rad($latFrom);
+            $lonFromRad = deg2rad($lonFrom);
+            $latToRad = deg2rad($latTo);
+            $lonToRad = deg2rad($lonTo);
 
-        $deltaLat = $latTo - $latFrom;
-        $deltaLon = $lonTo - $lonFrom;
+            $deltaLat = $latToRad - $latFromRad;
+            $deltaLon = $lonToRad - $lonFromRad;
 
-        $a = sin($deltaLat / 2) * sin($deltaLat / 2) + cos($latFrom) * cos($latTo) * sin($deltaLon / 2) * sin($deltaLon / 2);
-        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+            $a = sin($deltaLat / 2) * sin($deltaLat / 2) + cos($latFromRad) * cos($latToRad) * sin($deltaLon / 2) * sin($deltaLon / 2);
+            $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
 
-        $distance = $earthRadius * $c;
-        dd($distance);
-        return redirect('/')->with('distance', $distance);
+            $distance = $earthRadius * $c;
+            return $distance;
+        }
 
-        // return response()->json([
-        //     'distance' => $distance,
-        // ]);
-        $maxDistanceThreshold = 10; // 10 kilometers as an example
+        // Loop through each donor and calculate the distance
+        $distances = [];
+        foreach ($donors as $donor) {
+            $latitudeTo = $donor->Latitude;
+            $longitudeTo = $donor->Longitude;
+            $distance = calculateDistance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo);
 
-// Compare the distance against the threshold
-if ($distance <= $maxDistanceThreshold) {
-    // Locations are within the acceptable range
-    echo "The donor and receiver locations are a match!";
-} else {
-    // Locations are not within the acceptable range
-    echo "The donor and receiver locations do not meet the criteria for a match.";
-}
+            // Add the distance and donor data to the array
+            $distances[] = [
+                'donor' => $donor,
+                'distance' => $distance,
+            ];
+        }
+
+        // Sort the array based on distances (shortest distance first)
+        usort($distances, function ($a, $b) {
+            return $a['distance'] <=> $b['distance'];
+        });
+
+        // Display the results
+        // dd($distances);
+
+        // Pass $distances to your view for displaying the data
+        return view('frontend.data', ['distances' => $distances]);
     }
 }
