@@ -17,23 +17,8 @@
 </head>
 <body> 
 
-@include('include.nav') 
-@if (session('success'))
-    <div class="alert alert-success" role="alert">
-        {{session ('success') }}
-    </div>
-    @endif
 
-    @if ($errors->any())
-    <div  class="col-lg-4 offset-4 alert alert-dark" role="alert">
-        <b> There are some errors in your submission:
-       
-    </div>
-    
-    @endif
-   
 
     @yield('content')
-    @include('include.footer')
 </body>
 </html>

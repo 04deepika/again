@@ -18,7 +18,11 @@ return new class extends Migration
             $table->string('Age');
             $table->string('Address');
             $table->string('Group');
+            $table->float('Longitude');
+            $table->float('Latitude');
             $table->timestamps();
+            $table->unsignedBigInteger('request_id')->nullable();
+            $table->foreign('request_id')->references('id')->on('requests')->onDelete('cascade')->nullable();
         });
     }
 

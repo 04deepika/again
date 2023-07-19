@@ -42,11 +42,21 @@ class ShortestPathController extends Controller
         $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
 
         $distance = $earthRadius * $c;
-        // dd($distance);
+        dd($distance);
         return redirect('/')->with('distance', $distance);
 
         // return response()->json([
         //     'distance' => $distance,
         // ]);
+        $maxDistanceThreshold = 10; // 10 kilometers as an example
+
+// Compare the distance against the threshold
+if ($distance <= $maxDistanceThreshold) {
+    // Locations are within the acceptable range
+    echo "The donor and receiver locations are a match!";
+} else {
+    // Locations are not within the acceptable range
+    echo "The donor and receiver locations do not meet the criteria for a match.";
+}
     }
 }

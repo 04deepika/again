@@ -14,5 +14,8 @@ class Donorform extends Model
         'Age',
         'Address',
         'Group',
+        'Latitude',
+        'Longitude',
     ];
 }
+ 

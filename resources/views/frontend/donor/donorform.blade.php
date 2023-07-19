@@ -68,8 +68,41 @@
     </div>
     @enderror
         </div>
-    <button class="btn btn-lg btn-danger mt-4  mb-2 submitmargin text-centre" type="submit">Submit</button>
-                    
+ 
+       
+        
+      <p>Click the button to get your coordinates.</p>
+
+<a onclick="getLocation()">Try It</a>
+
+<p id="demo"></p>
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+
+function showPosition(position) {
+  var latitude = position.coords.latitude;
+  var longitude = position.coords.longitude;
+  
+  document.getElementById("latitudeInput").value = latitude;
+  document.getElementById("longitudeInput").value = longitude;
+}
+</script>
+
+<input type="text" name="Latitude" id="latitudeInput" />
+<input type="text" name="Longitude" id="longitudeInput" />
+
+<button class="btn btn-lg btn-danger mt-4  mb-2 submitmargin text-centre" type="submit">Submit</button>
+    
                     </form>
                   </div>
                 </div>

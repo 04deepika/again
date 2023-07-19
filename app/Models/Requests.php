@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Signup extends Model
+class Requests extends Model
 {
     use HasFactory;
     protected $fillable = [
@@ -14,7 +14,7 @@ class Signup extends Model
         'Age',
         'Address',
         'Group',
-        'Password',
-        'Confirm',
-    ];
+        'Latitude',
+        'Longitude',
+    ];
 }

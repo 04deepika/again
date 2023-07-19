@@ -3,17 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Donorform;
+use App\Models\Requests;
 
-class DonorformController extends Controller
+class RequestController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $posts = Donorform::all();
-        return view('frontend.donor.donorform', ['allposts' => $posts]);
+        $posts = Requests::all();
+        return view('frontend.receivers.requestform');
     }
 
     /**
@@ -21,7 +21,8 @@ class DonorformController extends Controller
      */
     public function create()
     {
-        return view('frontend.donor.donorform');
+        return view('frontend.receivers.requestform');
+        
     }
 
     /**
@@ -36,7 +37,7 @@ class DonorformController extends Controller
             'Address' => 'required',
             'Group' => ['required']
         ]);
-        $post = new Donorform();
+        $post = new Requests();
         $post->Name = $request->input('Name');
         $post->Email = $request->input('Email');
         $post->Age = $request->input('Age');
@@ -47,7 +48,7 @@ class DonorformController extends Controller
 
        
         $post->save();
-        return view('frontend.index');
+        
     }
 
     /**
@@ -55,8 +56,7 @@ class DonorformController extends Controller
      */
     public function show(string $id)
     {
-        $post = Donorform::find($id);
-        return view('frontend.donor.view', compact('post'));
+        //
     }
 
     /**

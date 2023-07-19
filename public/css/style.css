@@ -21,7 +21,7 @@
     background-color: white;
 }
 .offwhite{
-    background-color: antiquewhite;
+    background-color: rgb(250, 207, 207);
 }
 .margin{
     margin-left:    90px;
@@ -47,4 +47,13 @@
     height: 24px;
    margin-left: 590px;
     width: 150px;
+}
+.background {
+    background-image: url('../images/back.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+  
+}
+.slidemargin {
+margin-top: 150px;
 }
